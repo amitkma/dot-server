@@ -14,7 +14,7 @@ public class SalonController {
     @Autowired
     private SalonRepository salonRepository;
 
-    @RequestMapping("secure/salons")
+    @RequestMapping("api/salons")
     public List<Salon> greeting() {
         return salonRepository.findAll();
     }

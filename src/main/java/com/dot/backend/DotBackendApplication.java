@@ -11,14 +11,6 @@ import java.io.IOException;
 @SpringBootApplication
 public class DotBackendApplication {
 
-    @Bean
-    public FilterRegistrationBean jwtFilter() {
-        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new JwtAuthenticationFilter());
-        registrationBean.addUrlPatterns("/secure/*");
-        return registrationBean;
-    }
-
     public static void main(String[] args) throws IOException {
         SpringApplication.run(DotBackendApplication.class, args);
     }

@@ -24,9 +24,6 @@ public class TokenService {
     private static final String TOKEN_PREFIX = "Bearer";
     private static final String HEADER_STRING = "Authorization";
 
-    @Autowired
-    static Environment environment;
-
     public static void addAuthToken(HttpServletResponse response, String phoneNumber, String secretKey, String salt) {
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -35,36 +32,29 @@ public class TokenService {
         Date now = new Date(nowMillis);
 
         //We will sign our JWT with our ApiKey secret
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("SHA-256");
-            md.update(secretKey.getBytes("UTF-8"));
-            byte[] key = md.digest();
-            Key signingKey = new SecretKeySpec(key, signatureAlgorithm.getJcaName());
-            System.out.println(signingKey);
-            String userId = generateUniqueId(phoneNumber, salt);
+        byte[] key = secretKey.getBytes();
+        Key signingKey = new SecretKeySpec(key, signatureAlgorithm.getJcaName());
+        System.out.println(signingKey);
+        String userId = generateUniqueId(phoneNumber, salt);
 
-            //Let's set the JWT Claims
-            JwtBuilder builder = Jwts.builder().setId(userId)
-                    .setIssuedAt(now)
-                    .setSubject("users/"+userId)
-                    .setIssuer("dot-salons")
-                    .signWith(signingKey, signatureAlgorithm);
-            Map<String, Object> claims = new HashMap<>();
-            claims.put("access", "full");
-            builder.addClaims(claims);
-            String jwt = builder.compact();
-            //Builds the JWT and serializes it to a compact, URL-safe string
-            response.addHeader(HEADER_STRING, TOKEN_PREFIX+" "+ jwt);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        //Let's set the JWT Claims
+        JwtBuilder builder = Jwts.builder().setId(userId)
+                .setIssuedAt(now)
+                .setSubject("users/" + userId)
+                .setIssuer("dot-salons")
+                .signWith(signingKey, signatureAlgorithm);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("access", "full");
+        builder.addClaims(claims);
+        String jwt = builder.compact();
+        //Builds the JWT and serializes it to a compact, URL-safe string
+        response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
     }
 
-    public static Claims validateToken(String token){
-        return Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(environment.getProperty("SECRET_KEY")))
+    public static Claims validateToken(String token, String key) {
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+        Key signingKey = new SecretKeySpec(key.getBytes(), signatureAlgorithm.getJcaName());
+        return Jwts.parser().setSigningKey(signingKey)
                 .parseClaimsJws(token).getBody();
     }
 
@@ -73,7 +63,7 @@ public class TokenService {
             // Create MessageDigest instance for MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
             //Add password bytes to digest
-            md.update((phoneNumber+salt).getBytes());
+            md.update((phoneNumber + salt).getBytes());
             //Get the hash's bytes
             byte[] bytes = md.digest();
             //This bytes[] has bytes in decimal format;
