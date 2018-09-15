@@ -31,5 +31,11 @@ targetCompatibility = 1.8
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+
+    compile 'io.jsonwebtoken:jjwt-api:0.10.5'
+    runtime 'io.jsonwebtoken:jjwt-impl:0.10.5','io.jsonwebtoken:jjwt-jackson:0.10.5'
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
