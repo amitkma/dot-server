@@ -12,23 +12,24 @@ import com.dot.backend.security.TokenService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import retrofit2.Response;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@RestController
+@CustomRestControllerAnnotation
+@RequestMapping("/otp")
 public class OtpController {
 
     @Autowired
     private Environment environment;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    @GetMapping("/otp/{phone}")
+    @GetMapping("/{phone}")
     public SendOtp sendOtp(@PathVariable String phone, HttpServletResponse httpServletResponse) {
         try {
             Response<SendOtp> response = Remote.Creator.getRetrofit().create(Remote.class)
@@ -47,8 +48,9 @@ public class OtpController {
         }
     }
 
-    @PostMapping(value = "/otp/verify")
-    public User verifyOtp(@RequestBody RequestVerifyOtp requestVerifyOtp, HttpServletResponse httpServletResponse) {
+    @PostMapping(value = "/verify")
+    @ResponseStatus(HttpStatus.OK)
+    public void verifyOtp(@RequestBody RequestVerifyOtp requestVerifyOtp, HttpServletResponse httpServletResponse) {
         try {
             Response<VerifyOtp> response = Remote.Creator.getRetrofit().create(Remote.class)
                     .verifyOtp(environment.getProperty("SMS_API_KEY"), requestVerifyOtp.session_id, requestVerifyOtp.otp_input).execute();
@@ -61,7 +63,6 @@ public class OtpController {
                 TokenService.addAuthToken(httpServletResponse, requestVerifyOtp.phone,
                         environment.getProperty("SECRET_KEY"), environment.getProperty("SALT"));
                 userRepository.save(user);
-                return user;
             } else {
                 throw new OtpException(verifyOtp.Details);
             }
