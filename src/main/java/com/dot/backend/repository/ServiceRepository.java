@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface ServiceRepository extends MongoRepository<Service, String> {
 
-    @Query("{ salon: ?0 }")
-    List<Service> getServicesBySalon(String salon);
+    List<Service> findBySalon(String salon);
 
-    @Query("{ salon: ?0, category: ?1}")
-    List<Service> getServicesBySalonAndCategory(String salon, String category);
+    List<Service> findBySalonAndCategory(String salon, String category);
 }

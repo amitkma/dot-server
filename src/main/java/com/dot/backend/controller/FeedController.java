@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CustomRestControllerAnnotation
-@RequestMapping("/dot")
+@RestController
+@RequestMapping("/api/v1/dot")
 public class FeedController {
 
     @Autowired

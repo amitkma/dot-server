@@ -1,6 +1,5 @@
 package com.dot.backend.repository;
 
-import com.dot.backend.domain.Feed;
 import com.dot.backend.domain.Inspiration;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

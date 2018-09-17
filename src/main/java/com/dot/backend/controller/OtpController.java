@@ -19,8 +19,8 @@ import retrofit2.Response;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@CustomRestControllerAnnotation
-@RequestMapping("/otp")
+@RestController
+@RequestMapping("/api/v1/otp")
 public class OtpController {
 
     @Autowired

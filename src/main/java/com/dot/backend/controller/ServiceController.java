@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CustomRestControllerAnnotation
-@RequestMapping("/dot")
+@RestController
+@RequestMapping("/api/v1/dot")
 public class ServiceController {
 
     @Autowired
@@ -17,7 +17,7 @@ public class ServiceController {
     @GetMapping("/services/{salon}")
     public List<Service> servicesBySalonAndCategory(@PathVariable String salon,
                                                     @RequestParam(value = "category", required = false) String category) {
-        return (category == null || category.length() <= 0) ? serviceRepository.getServicesBySalon(salon)
-                : serviceRepository.getServicesBySalonAndCategory(salon, category);
+        return (category == null || category.length() <= 0) ? serviceRepository.findBySalon(salon)
+                : serviceRepository.findBySalonAndCategory(salon, category);
     }
 }

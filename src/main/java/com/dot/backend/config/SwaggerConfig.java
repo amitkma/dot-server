@@ -23,12 +23,6 @@ public class SwaggerConfig {
     @Bean
     public Docket api(ServletContext servletContext) {
         return new Docket(DocumentationType.SWAGGER_2)
-                .pathProvider(new RelativePathProvider(servletContext) {
-                    @Override
-                    public String getApplicationBasePath() {
-                        return "/api/v1";
-                    }
-                })
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.dot.backend"))
                 .paths(PathSelectors.any())
