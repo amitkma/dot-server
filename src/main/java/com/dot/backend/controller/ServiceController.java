@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/dot")
+@RequestMapping("services")
 public class ServiceController {
 
     @Autowired
     private ServiceRepository serviceRepository;
 
-    @GetMapping("/services/{salon}")
+    @GetMapping("/{salon}")
     public List<Service> servicesBySalonAndCategory(@PathVariable String salon,
                                                     @RequestParam(value = "category", required = false) String category) {
         return (category == null || category.length() <= 0) ? serviceRepository.findBySalon(salon)

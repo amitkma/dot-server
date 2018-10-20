@@ -15,7 +15,7 @@ public class ConfigAdapter extends WebMvcConfigurerAdapter {
     public FilterRegistrationBean myFilterRegistrationBean() {
         FilterRegistrationBean regBean = new FilterRegistrationBean();
         regBean.setFilter(jwtAuthenticationFilter);
-        regBean.addUrlPatterns("/api/v1/dot/*");
+        regBean.addUrlPatterns("/dot/*");
 
         return regBean;
     }

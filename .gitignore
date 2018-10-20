@@ -6,4 +6,4 @@ out
 *.ipr
 *.iws
 .DS_Store
-.local_env.sh
+local_env.sh

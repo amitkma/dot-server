@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import retrofit2.Response;
 
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/v1/otp")
+@RequestMapping("otp")
 public class OtpController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class OtpController {
         }
     }
 
-    @PostMapping(value = "/verify")
+    @PostMapping(value = "/verify", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public void verifyOtp(@RequestBody RequestVerifyOtp requestVerifyOtp, HttpServletResponse httpServletResponse) {
         try {

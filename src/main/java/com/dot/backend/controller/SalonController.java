@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/dot")
+@RequestMapping("dot/salons")
 public class SalonController {
 
     @Autowired
     private SalonRepository salonRepository;
 
-    @GetMapping("/salons")
-    public List<Salon> salons() {
+    @GetMapping("")
+    public List<Salon> getSalons() {
         return salonRepository.findAll();
     }
 }

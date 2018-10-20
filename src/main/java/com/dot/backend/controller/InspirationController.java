@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/dot")
+@RequestMapping("dot/inspirations")
 public class InspirationController {
 
     @Autowired
     private InspirationRepository inspirationRepository;
 
-    @GetMapping("/inspirations")
-    public List<Inspiration> inspirations(@RequestParam(value = "category", required = false) String category) {
+    @GetMapping("")
+    public List<Inspiration> getInspirations(@RequestParam(value = "category", required = false) String category) {
         return (category == null || category.length()<=0) ? inspirationRepository.findAll()
                 : inspirationRepository.getInspirationByCategory(category);
     }

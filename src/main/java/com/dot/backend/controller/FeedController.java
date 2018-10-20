@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/dot")
+@RequestMapping("dot/feeds")
 public class FeedController {
 
     @Autowired
     private FeedRepository feedRepository;
 
-    @GetMapping("/feeds")
+    @GetMapping("")
     public List<Feed> feedsByTag(@RequestParam(value = "tag", required = false) String tag) {
         return (tag == null || tag.length() <= 0) ? feedRepository.findAll() : feedRepository.getFeedsByTag(tag);
     }
