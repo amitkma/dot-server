@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Promotion {
     @Id
     private String id;
-    private String promotion_image;
+    private String image;
 
     public String getId() {
         return id;
@@ -17,11 +17,11 @@ public class Promotion {
         this.id = id;
     }
 
-    public String getPromotion_image() {
-        return promotion_image;
+    public String getImage() {
+        return image;
     }
 
-    public void setPromotion_image(String promotion_image) {
-        this.promotion_image = promotion_image;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

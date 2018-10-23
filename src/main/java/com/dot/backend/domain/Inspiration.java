@@ -8,11 +8,11 @@ public class Inspiration {
     @Id
     private String id;
     private String category;
-    private String url;
+    private String image;
 
-    public Inspiration(String category, String url) {
+    public Inspiration(String category, String image) {
         this.category = category;
-        this.url = url;
+        this.image = image;
     }
 
     public String getId() {
@@ -31,11 +31,11 @@ public class Inspiration {
         this.category = category;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -10,15 +10,15 @@ public class Feed {
     @Id
     private String id;
     private String description;
-    private String feed_url;
+    private String image;
     private List<String> tags;
 
     public Feed(){
     }
 
-    public Feed(String description, String feed_url, List<String> tags) {
+    public Feed(String description, String image, List<String> tags) {
         this.description = description;
-        this.feed_url = feed_url;
+        this.image = image;
         this.tags = tags;
     }
 
@@ -38,12 +38,12 @@ public class Feed {
         this.description = description;
     }
 
-    public String getFeed_url() {
-        return feed_url;
+    public String getImage() {
+        return image;
     }
 
-    public void setFeed_url(String feed_url) {
-        this.feed_url = feed_url;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public List<String> getTags() {
