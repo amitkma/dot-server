@@ -1,7 +1,10 @@
 package com.dot.backend.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
 
 @Document(collection = "salons")
 public class Salon {
@@ -10,6 +13,8 @@ public class Salon {
     private String name;
     private String address;
     private String image;
+    @DBRef
+    private List<Category> categories;
 
     public Salon(String name, String address, String image) {
         this.name = name;
@@ -47,5 +52,13 @@ public class Salon {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
