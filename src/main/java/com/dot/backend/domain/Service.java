@@ -1,6 +1,7 @@
 package com.dot.backend.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "services")
@@ -11,14 +12,8 @@ public class Service {
     private String name;
     private String salon;
     private int price;
-    private String category;
-
-    public Service(String name, String salon, int price, String category) {
-        this.name = name;
-        this.salon = salon;
-        this.price = price;
-        this.category = category;
-    }
+    @DBRef
+    private Category category;
 
     public String getId() {
         return id;
@@ -52,11 +47,11 @@ public class Service {
         this.price = price;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 }
